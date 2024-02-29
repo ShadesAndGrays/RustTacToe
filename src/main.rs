@@ -1,4 +1,6 @@
-use std::{iter::Enumerate, usize};
+use std::{iter::Enumerate, slice::Windows, usize, vec};
+
+use rand::seq::SliceRandom;
 
 const WINNING_PATTERNS: [[usize;3];8]= [[1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]];
 
@@ -95,7 +97,11 @@ fn compute_move(board:&[char]) -> usize{
         } 
     }
     println!("{:?}", available_slots);
-    for i in WINNING_PATTERNS{
+
+     
+   let mut patterns = WINNING_PATTERNS;
+    patterns.shuffle(&mut rand::thread_rng());
+    for i in patterns{
         println!("{:?}",i);
         for position in i
         {
